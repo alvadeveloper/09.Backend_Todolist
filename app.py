@@ -1,16 +1,44 @@
 import os
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from models import setup_db, TodoList, User
+
 def create_app(test_config=None):
   # create and configure the app
-  app = Flask(__name__)
-  CORS(app)
+  application = app = Flask(__name__)
+  setup_db(app)
+  db = SQLAlchemy(app)	
 
-  return app
+  '''
+  @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
+  '''
 
-APP = create_app()
+  cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+  '''
+  @TODO: Use the after_request decorator to set Access-Control-Allow
+  '''
+
+  @app.after_request
+  def after_request(response):
+  	response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
+  	response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
+  	return response
+
+
+  '''
+	Set up routes for app
+  '''
+
+  @app.route('/', methods=['GET'])
+  def index():
+   return "Hello World"
+
+
+
+
 
 if __name__ == '__main__':
-    APP.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(debug=True)
