@@ -19,12 +19,11 @@ class User(db.Model):
 	__tablename__ = 'user'
 
 	id = Column(Integer, primary_key=True)
-	username = Column(String, nullable=False)
-	lists = db.relationship('TodoList', backref='writer')
+	username = Column(String(80), nullable=False)
+	lists = db.relationship('Lists', backref='writer')
 
-	def __init__(self, username, lists):
+	def __init__(self, username):
 		self.username = username
-		self.list = lists
 
 	def insert(self):
 		db.session.add(self)
@@ -37,19 +36,17 @@ class User(db.Model):
 		db.session.delete(self)
 		db.session.commit()
 
-
-class TodoList(db.Model):
-	__tablename__ = 'todolist'
+class Lists(db.Model):
+	__tablename__='lists'
 
 	id = Column(Integer, primary_key=True)
-	title = Column(String(80))
-	content = Column(String(300), nullable=False)
-	userid = Column(db.Integer, db.ForeignKey(User.id))
+	title = Column(String(80), nullable=False)
+	writer_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+	tasks = db.relationship('Task', backref='belongto')
 
-	def __init__(self, title, content, userid):
+	def __init__(self, title, writer_id):
 		self.title = title
-		self.content = content
-		self.userid = userid
+		self.writer_id = writer_id
 
 	def insert(self):
 		db.session.add(self)
@@ -61,6 +58,36 @@ class TodoList(db.Model):
 	def delete(self):
 		db.session.delete(self)
 		db.session.commit()
+
+
+class Task(db.Model):
+	__tablename__ = 'task'
+
+	id = Column(Integer, primary_key=True)
+	content = Column(String(80), nullable=False)
+	status = Column(String(80), nullable=False)
+	list_id = db.Column(db.Integer, db.ForeignKey("lists.id"))
+	
+	def __init__(self, content, status, list_id):
+		self.content = content
+		self.status = status
+		self.list_id = list_id
+
+	def insert(self):
+		db.session.add(self)
+		db.session.commit()
+
+	def update(self):
+		db.session.commit()
+
+	def delete(self):
+		db.session.delete(self)
+		db.session.commit()
+
+
+
+
+
 
 
 
