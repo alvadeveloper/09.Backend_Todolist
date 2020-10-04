@@ -5,9 +5,11 @@ from flask_cors import CORS
 from flask_assets import Bundle, Environment
 from webassets.filter import get_filter
 import random
+from flask_cors import cross_origin
 
 from models import setup_db, User, Lists, Task
-import server
+from server import server
+from auth import AuthError, requires_auth
 
 QUESTIONS_PER_PAGE = 10
 
@@ -16,6 +18,7 @@ def create_app(test_config=None):
   application = app = Flask(__name__)
   setup_db(app)
   db = SQLAlchemy(app)
+  app.register_blueprint(server, url_prefix="")
   
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
@@ -35,8 +38,10 @@ def create_app(test_config=None):
   '''
 	Set up routes for app
   '''
+  app.config['SECRET_KEY']= '$R\x87\xa3\xaa\x0eMM\xb6_\x89=,\xd0t\x07\xe0\x18\x95\x9a8|7?'
 
   @app.route('/', methods=['GET'])
+  @requires_auth('get:list')
   def index():
     return "hello world"
 

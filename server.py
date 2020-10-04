@@ -7,6 +7,7 @@ from dotenv import load_dotenv, find_dotenv
 from flask import Flask
 from flask import jsonify
 from flask import redirect
+from flask import Blueprint
 from flask import render_template
 from flask import session
 from flask import url_for
@@ -16,6 +17,20 @@ from six.moves.urllib.parse import urlencode
 app = Flask(__name__)
 
 oauth = OAuth(app)
+
+server = Blueprint("server", __name__, static_folder="static", template_folder="template")
+
+app.config['SECRET_KEY'] = '$R\x87\xa3\xaa\x0eMM\xb6_\x89=,\xd0t\x07\xe0\x18\x95\x9a8|7?'
+
+def requires_auth(f):
+  @wraps(f)
+  def decorated(*args, **kwargs):
+    if 'profile' not in session:
+      # Redirect to Login page here
+      return redirect('/')
+    return f(*args, **kwargs)
+
+  return decorated
 
 auth0 = oauth.register(
     'auth0',
@@ -29,7 +44,12 @@ auth0 = oauth.register(
     },
 )
 
-@app.route('/callback')
+
+@server.route('/login')
+def login():
+    return redirect('https://dev-rp5hh-6z.auth0.com/authorize?audience=todo&response_type=token&client_id=2MdOSeT1x6aGKdtQPfPGbC9i6r99Ihoq&redirect_uri=http://localhost:5000')
+
+@server.route('/callback')
 def callback_handling():
     # Handles response from token endpoint
     auth0.authorize_access_token()
@@ -43,10 +63,24 @@ def callback_handling():
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
-    return redirect('/dashboard')
+    return jsonify({
+        "success": true
+        })
 
-@app.route('/login')
-def login():
-    return auth0.authorize_redirect(redirect_uri='http://localhost:5000/')
+@server.route('/dashboard')
+@requires_auth
+def dashboard():
+    return render_template('dashboard.html',
+                           userinfo=session['profile'],
+                           userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
 
-    
+
+@server.route('/logout')
+def logout():
+    # Clear session stored data
+    session.clear()
+    # Redirect user to logout endpoint
+    params = {'client_id': '2MdOSeT1x6aGKdtQPfPGbC9i6r99Ihoq'}
+    return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
+
+    return app
