@@ -1,12 +1,12 @@
 import json
 from flask import request, _request_ctx_stack, abort
 from functools import wraps
-import jwt
+from jose import jwt
 from urllib.request import urlopen
 
 AUTH0_DOMAIN = 'dev-rp5hh-6z.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'i'
+API_AUDIENCE = 'todo'
 
 ## AuthError Exception
 '''

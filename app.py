@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os
 from flask import Flask, request, abort, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -40,14 +41,23 @@ def create_app(test_config=None):
   '''
   app.config['SECRET_KEY']= '$R\x87\xa3\xaa\x0eMM\xb6_\x89=,\xd0t\x07\xe0\x18\x95\x9a8|7?'
 
-  @app.route('/', methods=['GET'])
+  @app.route('/list', methods=['GET'])
   @requires_auth('get:list')
-  def index():
-    return "hello world"
+  def index(self):
+    
+    q = (db.session.query(Lists).all())
+
+    lists = []
+
+    for d in q:
+      lists.append("List ID : "+ str(d.id))
+
+    return jsonify(lists)  
 
 
   @app.route('/task', methods=['GET'])
-  def task():  
+  @requires_auth('get:list')
+  def task(self):  
 
     q = (db.session.query(User, Lists, Task)
             .filter(User.id == Lists.writer_id)
@@ -55,32 +65,57 @@ def create_app(test_config=None):
             .filter(User.id == 1)
             ).all()
 
-    userlist = []
+    tasks = []
 
     for d in q:
-      userlist.append(d[0].username)
-      userlist.append(d[1].title)
-      userlist.append(d[2].content)
-      userlist.append(d[2].status)
+      tasks.append("Username : " + d[0].username)
+      tasks.append("List ID : " + d[1].title)
+      tasks.append("Task : "+ d[2].content)
+      tasks.append("Completed? : "+d[2].status)
+      tasks.append("Task ID : " + str(d[2].id))
+
       
-    print(userlist)
+    return jsonify(tasks)  
 
-    return jsonify(userlist)
 
-  @app.route('/newuser', methods=['GET', 'POST'])
-  def newuser():
+  @app.route('/addtask', methods=['GET', 'POST'])
+  @requires_auth('post:list')
+  def addtask(self):
 
-    q = (db.session.query(User).all())
+    data = request.get_json()
 
-    newuser = []
+    content = data['content']
+    status = data['status']
+    list_id = data['list_id']
 
-    for d in q:
-      newuser.append(d.username)
+    task = Task(content=content, status=status,list_id=list_id )
+    task.insert()
 
-    print(newuser)
+    return jsonify({
+      "success": "Task inserted"
+      })
 
-    return jsonify(newuser)
-  
+
+  @app.route('/updatetask', methods=['PATCH'])
+  @requires_auth('patch:list')
+  def update_task(self):
+
+    q = (db.session.query(Task).all())
+
+    if q is None:
+        abort(404)
+
+    data = request.get_json()
+    task_id = data['id']
+    content = data['content']
+    status = data['status']
+
+    task = Task(content=content, status=status,id=task_id )
+    task.update()
+
+    return jsonify ({
+        "success": True 
+      })
 
   return app
 
