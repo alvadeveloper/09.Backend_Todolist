@@ -96,26 +96,43 @@ def create_app(test_config=None):
       })
 
 
-  @app.route('/updatetask', methods=['PATCH'])
+  @app.route('/task/update/<int:taskid>', methods=['PATCH'])
   @requires_auth('patch:list')
-  def update_task(self):
+  def updatetask(self, taskid):
 
-    q = (db.session.query(Task).all())
+    data = Task.query.filter(Task.id == taskid).one_or_none()
 
-    if q is None:
+    print (data.content)
+
+    if data is None:
         abort(404)
 
-    data = request.get_json()
-    task_id = data['id']
-    content = data['content']
-    status = data['status']
+    body = request.get_json()
 
-    task = Task(content=content, status=status,id=task_id )
-    task.update()
+    data.content = body['content']
+    data.status = body['status']
+    data.update()
 
     return jsonify ({
-        "success": True 
+        "success": True,
+        "Task Updated" : True
       })
+
+  @app.route('/task/delete/<int:taskid>', methods=['DELETE'])
+  @requires_auth('delete:list')
+  def deletetask(self, taskid):
+
+    data = Task.query.filter(Task.id == taskid).one_or_none()
+
+    if data is None:
+        abort(404)
+
+    data.delete()
+
+    return jsonify({
+        "success": True,
+        "Task Deleted": True
+        })
 
   return app
 
