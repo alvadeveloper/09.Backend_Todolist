@@ -1,0 +1,40 @@
+1 General description of the project or content of the repository
+
+This project consist of five APIs:
+A. two Get API to get the task and list detail /task and /list, each list contains many of tasks
+B. one Post API to post the new task data to the list. /addtask
+C. one Patch API to update the exisitng task. /task/update/<int:taskid>
+D. one Delete API to delete exisitng task. /task/delete/<int:taskid>
+
+This project consist of two roles:
+A. The admin role, able to read all the task and list of any user, but cannot update delete or change the content
+B. The user role, able to read all the own data and able to update delete or change the content
+
+
+2 List of what software, firmware and hardware you may require.
+
+This software require Postman or other alternatives. Choose the request method and the URL/API in Postman to get the result from the API
+
+
+3 Installation instructions for the software and firmware.
+
+No installation is required, only an Internet connection to the API is required.
+
+
+4 List of files included in the project.
+
+A. venv, the Python virtualenv folder
+B. Root folder, auth.py and server.py consisting login logout and authentication method
+app.py the consisting the function of all APIs, models.py to map the database
+test_todo.py for app API testing
+
+5 Copyright and licensing information.
+
+This software is only shared by Udacity and the writer. To share this software, the consent of both parties should be obtained.
+
+
+6 Acknowledgements and credits for any resources or blogs that helped you create the project.
+
+Thank you to stackoverflow, and the contributors for all the plugins of Flask and Flask
+
+// End of the file
