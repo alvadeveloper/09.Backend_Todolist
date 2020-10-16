@@ -52,7 +52,10 @@ def create_app(test_config=None):
     for d in q:
       lists.append("List ID : "+ str(d.id))
 
-    return jsonify(lists)  
+    return jsonify({
+      "Lists": lists,
+      "success": True
+      })  
 
 
   @app.route('/task', methods=['GET'])
@@ -75,7 +78,10 @@ def create_app(test_config=None):
       tasks.append("Task ID : " + str(d[2].id))
 
       
-    return jsonify(tasks)  
+    return jsonify({
+      "Tasks" : tasks,
+      "success" : True
+      })  
 
 
   @app.route('/addtask', methods=['GET', 'POST'])
@@ -133,6 +139,47 @@ def create_app(test_config=None):
         "success": True,
         "Task Deleted": True
         })
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+    return jsonify({
+                    "success": False, 
+                    "error": 422,
+                    "message": "unprocessable"
+                    }), 422
+
+  @app.errorhandler(404)
+  def not_found(error):
+      return jsonify({
+                      "success": False, 
+                      "error": 404,
+                      "message": "resource not found"
+                      }), 404
+
+  @app.errorhandler(400)
+  def bad_request(error):
+      return jsonify({
+                      "success": False, 
+                      "error": 400,
+                      "message": "bad request"
+                      }), 400
+
+  @app.errorhandler(405)
+  def methodnotallowed(error):
+      return jsonify({
+                      "success": False, 
+                      "error": 405,
+                      "message": "not allowed"
+                      }), 405
+
+  @app.errorhandler(401)
+  def unauthorized(error):
+      return jsonify({
+                    "success": False, 
+                    "error": 401,
+                    "message": "Unauthorized"
+                    }), 401
+
 
   return app
 
