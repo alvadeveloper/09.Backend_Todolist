@@ -16,7 +16,7 @@ QUESTIONS_PER_PAGE = 10
 
 def create_app(test_config=None):
   # create and configure the app
-  application = app = Flask(__name__)
+  app = Flask(__name__)
   setup_db(app)
   db = SQLAlchemy(app)
   app.register_blueprint(server, url_prefix="")

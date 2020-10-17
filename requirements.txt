@@ -1,4 +1,5 @@
 Authlib==0.15
+gunicorn
 certifi==2020.6.20
 cffi==1.14.3
 chardet==3.0.4
