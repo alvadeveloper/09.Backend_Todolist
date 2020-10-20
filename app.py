@@ -14,7 +14,7 @@ from auth import AuthError, requires_auth
 QUESTIONS_PER_PAGE = 10
 
 
-application = app = Flask(__name__)
+app = Flask(__name__)
 setup_db(app)
 db = SQLAlchemy(app)
 app.register_blueprint(server, url_prefix="")
