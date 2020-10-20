@@ -13,20 +13,18 @@ from auth import AuthError, requires_auth
 
 QUESTIONS_PER_PAGE = 10
 
-
-app = Flask(__name__)
-setup_db(app)
-db = SQLAlchemy(app)
-app.register_blueprint(server, url_prefix="")
-  
-'''
-@TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
-'''
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-
 def create_app(test_config=None):
   # create and configure the app
 
+  app = Flask(__name__)
+  setup_db(app)
+  db = SQLAlchemy(app)
+  app.register_blueprint(server, url_prefix="")
+    
+  '''
+  @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
+  '''
+  cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
   '''
   @TODO: Use the after_request decorator to set Access-Control-Allow
@@ -43,9 +41,13 @@ def create_app(test_config=None):
   '''
   app.config['SECRET_KEY']= '$R\x87\xa3\xaa\x0eMM\xb6_\x89=,\xd0t\x07\xe0\x18\x95\x9a8|7?'
 
+  @app.route('/', methods=['GET'])
+  def index():
+    return "Hello World"
+
   @app.route('/list', methods=['GET'])
   @requires_auth('get:list')
-  def index(self):
+  def list(self):
     
     q = (db.session.query(Lists).all())
 
@@ -118,5 +120,7 @@ def create_app(test_config=None):
     return jsonify ({
         "success": True 
       })
+
+
 
   return app
