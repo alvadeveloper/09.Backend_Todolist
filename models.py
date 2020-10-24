@@ -3,8 +3,7 @@ from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_name = 'todo'
-database_path = "postgres://{}/{}".format('sxzkjtchfvtlfs:6981248b5fa2d1dc2fb33c2da62e34ec8a6119587adc13d82f383a8de017f859@ec2-54-234-44-238.compute-1.amazonaws.com:5432/d1pbcstk903gl4', database_name)
+database_path = DATABASE_URL
 
 db = SQLAlchemy()
 
