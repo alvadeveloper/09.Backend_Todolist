@@ -47,7 +47,7 @@ auth0 = oauth.register(
 
 @server.route('/login')
 def login():
-    return redirect('https://dev-rp5hh-6z.auth0.com/authorize?audience=todo&response_type=token&client_id=2MdOSeT1x6aGKdtQPfPGbC9i6r99Ihoq&redirect_uri=http://localhost:5000')
+    return redirect('https://dev-rp5hh-6z.auth0.com/authorize?audience=todo&response_type=token&client_id=2MdOSeT1x6aGKdtQPfPGbC9i6r99Ihoq&redirect_uri=https://todolist-udacity2020.herokuapp.com/')
 
 @server.route('/callback')
 def callback_handling():
