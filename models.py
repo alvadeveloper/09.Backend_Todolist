@@ -3,7 +3,8 @@ from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_path = sqlite:///db.sqlite3
+
+database_path = "postgres://upjybpwdpimwfo:f317b2fa3e2fb8f967e26359c3dbe520d2ca4d532bd5993bb8ed38fe394dc063@ec2-34-234-185-150.compute-1.amazonaws.com:5432/dbalhldorae4u5"
 
 db = SQLAlchemy()
 
