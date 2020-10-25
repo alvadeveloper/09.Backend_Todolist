@@ -122,5 +122,51 @@ def create_app(test_config=None):
       })
 
 
+  @app.errorhandler(422)
+  def unprocessable(error):
+        return jsonify({
+                    "success": False, 
+                    "error": 422,
+                    "message": "unprocessable"
+                    }), 422
+
+  @app.errorhandler(404)
+  def not_found(error):
+        return jsonify({
+                        "success": False, 
+                        "error": 404,
+                        "message": "resource not found"
+                        }), 404
+
+  @app.errorhandler(400)
+  def bad_request(error):
+        return jsonify({
+                        "success": False, 
+                        "error": 400,
+                        "message": "bad request"
+                        }), 400
+
+  @app.errorhandler(405)
+  def methodnotallowed(error):
+        return jsonify({
+                        "success": False, 
+                        "error": 405,
+                        "message": "not allowed"
+                        }), 405
+
+  '''
+  @TODO implement error handler for AuthError
+        error handler should conform to general task above 
+  '''
+
+  @app.errorhandler(401)
+  def unauthorized(error):
+        return jsonify({
+                        "success": False, 
+                        "error": 401,
+                        "message": "Unauthorized"
+                        }), 401
+
+
 
   return app
