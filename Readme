@@ -1,5 +1,8 @@
 1 General description of the project or content of the repository
 
+URL of the project:
+https://todolist-udacity2020.herokuapp.com/
+
 This project consist of five APIs:
 A. two Get API to get the task and list detail /task and /list, each list contains many of tasks
 B. one Post API to post the new task data to the list. /addtask
@@ -18,7 +21,12 @@ This software require Postman or other alternatives. Choose the request method a
 
 3 Installation instructions for the software and firmware.
 
-No installation is required, only an Internet connection to the API is required.
+I.   Make sure you have python 3 and pip3 installed
+II.  Go to https://github.com/alvadeveloper/09.Backend_Todolist to download the Github Repository
+III. Unzip the downloaded file into a folder
+IV.  Run "pip3 install -r requirements.txt" to install packages in terminal
+V.   After the installed the packages, run "export FLASK_APP=app.py FLASK_DEBUG=true flask run" in the terminal
+VI.  Run and Test the app
 
 
 4 List of files included in the project.

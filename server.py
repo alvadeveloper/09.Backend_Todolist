@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 import json
 from os import environ as env
@@ -18,27 +19,30 @@ app = Flask(__name__)
 
 oauth = OAuth(app)
 
-server = Blueprint("server", __name__, static_folder="static", template_folder="template")
+server = Blueprint("server", __name__, static_folder="static",
+                   template_folder="template")
 
-app.config['SECRET_KEY'] = '$R\x87\xa3\xaa\x0eMM\xb6_\x89=,\xd0t\x07\xe0\x18\x95\x9a8|7?'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
 
 def requires_auth(f):
-  @wraps(f)
-  def decorated(*args, **kwargs):
-    if 'profile' not in session:
-      # Redirect to Login page here
-      return redirect('/')
-    return f(*args, **kwargs)
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'profile' not in session:
+            # Redirect to Login page here
+            return redirect('/')
+        return f(*args, **kwargs)
 
-  return decorated
+    return decorated
+
 
 auth0 = oauth.register(
     'auth0',
-    client_id='2MdOSeT1x6aGKdtQPfPGbC9i6r99Ihoq',
-    client_secret='HgWL9zAMTlHEfwrRZtVcNYP07EMejOW_xprPnjWR_dGdqvLVpGMcyBN_dDHzws_B',
-    api_base_url='https://dev-rp5hh-6z.auth0.com',
-    access_token_url='https://dev-rp5hh-6z.auth0.com/oauth/token',
-    authorize_url='https://dev-rp5hh-6z.auth0.com/authorize',
+    client_id=os.environ.get('client_id'),
+    client_secret=os.environ.get('client_secret'),
+    api_base_url=os.environ.get('api_base_url'),
+    access_token_url=os.environ.get('access_token_url'),
+    authorize_url=os.environ.get('authorize_url'),
     client_kwargs={
         'scope': 'openid profile email',
     },
@@ -47,7 +51,8 @@ auth0 = oauth.register(
 
 @server.route('/login')
 def login():
-    return redirect('https://dev-rp5hh-6z.auth0.com/authorize?audience=todo&response_type=token&client_id=2MdOSeT1x6aGKdtQPfPGbC9i6r99Ihoq&redirect_uri=https://todolist-udacity2020.herokuapp.com/')
+    return redirect(os.environ.get('REDIRECT_URL'))
+
 
 @server.route('/callback')
 def callback_handling():
@@ -65,7 +70,8 @@ def callback_handling():
     }
     return jsonify({
         "success": true
-        })
+    })
+
 
 @server.route('/dashboard')
 @requires_auth
