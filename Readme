@@ -19,10 +19,18 @@ The purpose of this app is to make a alpha version of a web todo list applicatio
 API key for the two roles
 
 User:
+(Have the right to create, edit, read and delete his own tasks)
 The API keys are submit in the Student Note
+Please login with the /login route and enter the below username and password to get the token from the link
+username: user@todo.com
+password: Passwordtest1
 
 Admin:
+(Have the right to read all users's tasks)
 The API keys are submit in the Student Note
+Please login with the /login route and enter the below username and password to get the token from the link
+username: admin@todo.com
+password: Passwordtest1
 
 
 2 List of what software, firmware and hardware you may require.
