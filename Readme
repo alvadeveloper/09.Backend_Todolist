@@ -13,6 +13,17 @@ This project consist of two roles:
 A. The admin role, able to read all the task and list of any user, but cannot update delete or change the content
 B. The user role, able to read all the own data and able to update delete or change the content
 
+Purpose of the Project
+The purpose of this app is to make a alpha version of a web todo list application. Under current purpose it is under development and testing processes.
+
+API key for the two roles
+
+User:
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFwZ0VGZXgzN21LUVc0YUI4QlRBaCJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycDVoaC02ei5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY4MzA0NGRjOWE1NWIwMDZmMTJhN2UyIiwiYXVkIjoidG9kbyIsImlhdCI6MTYwMzY5NTAyMiwiZXhwIjoxNjAzNzAyMjIyLCJhenAiOiIyTWRPU2VUMXg2YUdLZHRRUGZQR2JDOWk2cjk5SWhvcSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmxpc3QiLCJnZXQ6bGlzdCIsInBhdGNoOmxpc3QiLCJwb3N0Omxpc3QiXX0.V-9M_3hJO0Q_myoRq7UdlPwivFWuXjOSXOqC4J1dF51FwiPCryntS_7KRTv3pS-Zx7ZSRU9hnzJWcT_TCpzVbtMl6a9u62fpoAmydGNiPkdBVH4vBmwSuC7Cb2FYVBWiLrjxCuOTBHBMVkWpFMbGWdXfk8z4TkdTJMasv9fVVJcKs0-VzWF5oA4DUcBWHjxj5MCfcB5B0_-a6yQM-Sbxv-APceo1Rx1D-NBEn7wvwAxlxNGjWIeb3_ZpEXVaM980XiBNnN8bzPCw4mey27UQ2Snzaf6jsusFLwxqy_r-KURRUlt5HjPGyZzOBwgnHn-WtuYHVqraBxR95NYBadVttg
+
+Admin:
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFwZ0VGZXgzN21LUVc0YUI4QlRBaCJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycDVoaC02ei5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY3NTllOGIxMjEzYmEwMDZmYTlhODM1IiwiYXVkIjoidG9kbyIsImlhdCI6MTYwMzY5NjA0OCwiZXhwIjoxNjAzNzAzMjQ4LCJhenAiOiIyTWRPU2VUMXg2YUdLZHRRUGZQR2JDOWk2cjk5SWhvcSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0Omxpc3QiXX0.npBczyRRhxj3aCbQw7v5S61hCLO8OBOo-04-MlYaP0y0PvoFZbXDfzImsUAaKk6Q9OEw0FXAovdrhzxM2wuU1xVzeDe_q5y-3gYCIDLLhy-D0NPi3Og3ue9sIm8Qlw4dKmCZrbUFYUYXLGfcJ9bvW-M7kpLqC6YmMfLKPuCI6MdP7A0-hXbCOfTtMAUJ3XQp36HVUPXQkSjIPPXiXY4Vbn7cn0xontv7dloUaMJauvLS8ms6Nm5quaCu4En54rF9Ndj3noaFxeXn5iiG0ls5P7Yht2DAA2QchdJkNArhYm-lba7QUw3SvIYSZ2QdrqoqX9h6NmP5ZZexMFDi4zcYbQ
+
 
 2 List of what software, firmware and hardware you may require.
 
@@ -28,6 +39,12 @@ IV.  Run "pip3 install -r requirements.txt" to install packages in terminal
 V.   After the installed the packages, run "export FLASK_APP=app.py FLASK_DEBUG=true flask run" in the terminal
 VI.  Run and Test the app
 
+Dependence
+This project written in python with Postgresql and SQLAlchemy, and run with gunicorn web server. For Authentication, we use Auth0 as service for authentication and authorization. For more detail you can download and read the requirement.txt in the root folder.
+
+Cloud
+This project deployed to Heroku
+
 
 4 List of files included in the project.
 
@@ -36,12 +53,12 @@ B. Root folder, auth.py and server.py consisting login logout and authentication
 app.py the consisting the function of all APIs, models.py to map the database
 test_todo.py for app API testing
 
-5 Copyright and licensing information.
+5. Copyright and licensing information.
 
 This software is only shared by Udacity and the writer. To share this software, the consent of both parties should be obtained.
 
 
-6 Acknowledgements and credits for any resources or blogs that helped you create the project.
+6. Acknowledgements and credits for any resources or blogs that helped you create the project.
 
 Thank you to stackoverflow, and the contributors for all the plugins of Flask and Flask
 
