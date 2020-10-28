@@ -1,9 +1,33 @@
-1 General description of the project or content of the repository
+TodoList
+Getting Started
+Installing Dependencies
+Python 3.7.7
+Follow instructions to install the latest version of python for your platform in the python docs
 
-URL of the project:
+1. Virtual Enviornment
+Install python 3.7.7 and setup virtual environement and you can follow the instruction at below link to configuration the environment
+https://www.python.org/downloads/release/python-377/
+https://docs.python.org/3/library/venv.html
+
+2. PIP Dependencies
+Once completeing the setup of virtual enviroment, install PIP3 and run the below commands to install dependencies
+
+pip3 install -r requirements.txt
+This will install all of the required packages we selected within the requirements.txt file.
+
+3. Key Dependencies
+This project written in python with Postgresql and SQLAlchemy, and run with gunicorn web server. For Authentication, we use Auth0 as service for authentication and authorization. For more detail you can download and read the requirement.txt in the root folder.
+
+4. Running the server
+After the installed the dependencies, run "export FLASK_APP=app.py FLASK_DEBUG=true flask run" in the terminal
+Run and Test the app
+
+Each time you open a new terminal session, run:
+
+5. URL of the project:
 https://todolist-udacity2020.herokuapp.com/
 
-API key for the two roles
+6. API key for the two roles
 
 User:
 (Have the right to create, edit, read and delete his own tasks)
@@ -21,51 +45,35 @@ password: Passwordtest1
 
 Logout wiht the /logout route
 
-2 List of what software, firmware and hardware you may require.
-
-This software require Postman or other alternatives. Choose the request method and the URL/API in Postman to get the result from the API
-
-3 List of files included in the project.
+7. List of files included in the project.
 
 A. venv, the Python virtualenv folder
 B. Root folder, auth.py and server.py consisting login logout and authentication method
 app.py the consisting the function of all APIs, models.py to map the database
 test_todo.py for app API testing
 
-4. Copyright and licensing information.
+8. Copyright and licensing information.
 
 This software is only shared by Udacity and the writer. To share this software, the consent of both parties should be obtained.
 
 
-5. Acknowledgements and credits for any resources or blogs that helped you create the project.
+9. Acknowledgements and credits for any resources or blogs that helped you create the project.
 
 Thank you to stackoverflow, and the contributors for all the plugins of Flask and Flask
 
-6. Motivation for project
+10. Motivation for project
 The purpose of this app is to make a alpha version of a web todo list application. Under current purpose it is still under development and testing.
 
-7. Project dependencies, local development and hosting instruction
 
-7.1 Project dependencies
-This project written in python with Postgresql and SQLAlchemy, and run with gunicorn web server. For Authentication, we use Auth0 as service for authentication and authorization. For more detail you can download and read the requirement.txt in the root folder.
-
-7.2 local development
+11. local development
 Refer to the instructions to install the app, after installing the app. You can find the app.py including all APIs, models.py including all the database models, server.py and auth.py including the authentication configuration to Auth0. You can allowed to change all the configuration after get the agreement of the author and Udacity
 
-7.3 hosting instruction
+12. hosting instruction
 This app is based in Flask and able to run on Gunicorn, you can deploy it to AWS or Heroku or any hosting services that Support CICD.
 
 This project deployed to Heroku
 
-8. Detailed instructions for scripts to install any project dependencies, and to run the development server.
-I.   Make sure you have python 3 and pip3 installed
-II.  Go to https://github.com/alvadeveloper/09.Backend_Todolist to download the Github Repository
-III. Unzip the downloaded file into a folder
-IV.  Run "pip3 install -r requirements.txt" to install packages in terminal
-V.   After the installed the packages, run "export FLASK_APP=app.py FLASK_DEBUG=true flask run" in the terminal
-VI.  Run and Test the app
-
-9.Documentation of API behavior and RBAC controls
+13. Documentation of API behavior and RBAC controls
 This project consist of five APIs:
 A. two Get API to get the task and list detail /task and /list, each list contains many of tasks
 B. one Post API to post the new task data to the list. /addtask
